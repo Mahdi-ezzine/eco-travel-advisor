@@ -1,0 +1,104 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - plan_trip
+  - provide_destination
+  - provide_origin
+  - provide_dates
+  - provide_budget
+  - provide_sustainability_level
+  - ask_carbon_footprint
+  - ask_accommodation
+  - ask_transport
+  - ask_offset
+  - ask_cultural
+  - ask_privacy
+  - request_data_deletion
+  - request_human
+
+entities:
+  - city
+  - transport_mode
+  - sustainability_level
+
+slots:
+  destination:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_text
+        intent: provide_destination
+      - type: from_entity
+        entity: city
+        intent: provide_destination
+  origin:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_text
+        intent: provide_origin
+      - type: from_entity
+        entity: city
+        intent: provide_origin
+  travel_dates:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_text
+        intent: provide_dates
+  budget:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_text
+        intent: provide_budget
+  sustainability_level:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: sustainability_level
+  transport_mode:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: transport_mode
+  clarification_pending:
+    type: bool
+    influence_conversation: false
+    initial_value: false
+    mappings:
+      - type: custom
+
+responses:
+  utter_greet:
+    - text: "Hello, I am the Eco-Travel Advisor. I help you plan low-carbon, sustainable trips. Would you like to start planning a trip?"
+
+  utter_goodbye:
+    - text: "Safe and sustainable travels. Goodbye."
+
+  utter_ask_help:
+    - text: "I can help you plan a sustainable trip, compare low-carbon transport, find eco-certified hotels, estimate your carbon footprint, suggest offsets, and recommend community-friendly experiences. What would you like to do?"
+
+  utter_privacy_notice:
+    - text: "I only store the details needed to plan your trip and handle them in line with GDPR. You can ask me to forget your data at any time."
+
+actions:
+  - action_trip_intake
+  - action_recommend_accommodation
+  - action_recommend_transport
+  - action_recommend_offset
+  - action_recommend_cultural
+  - action_calculate_carbon
+  - action_human_handover
+  - action_forget_data
+  - action_default_fallback
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: false

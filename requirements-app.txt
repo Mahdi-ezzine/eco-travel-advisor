@@ -1,0 +1,7 @@
+# Streamlit frontend image.
+streamlit
+psycopg2-binary
+pandas
+matplotlib
+requests
+python-dotenv

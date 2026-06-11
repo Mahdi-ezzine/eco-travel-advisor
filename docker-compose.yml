@@ -1,0 +1,44 @@
+services:
+
+  rasa:
+    build:
+      context: .
+      dockerfile: Dockerfile.rasa
+    ports:
+      - "5005:5005"
+    environment:
+      ACTION_ENDPOINT_URL: "http://action_server:5055/webhook"
+    depends_on:
+      - action_server
+    networks:
+      - eco_net
+
+  action_server:
+    build:
+      context: .
+      dockerfile: Dockerfile.actions
+    env_file:
+      - .env
+    expose:
+      - "5055"
+    networks:
+      - eco_net
+
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    ports:
+      - "8501:8501"
+    environment:
+      RASA_API_URL: "http://rasa:5005/webhooks/rest/webhook"
+    env_file:
+      - .env
+    depends_on:
+      - rasa
+    networks:
+      - eco_net
+
+networks:
+  eco_net:
+    driver: bridge

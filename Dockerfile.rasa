@@ -1,0 +1,19 @@
+FROM python:3.8-slim
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements-rasa.txt .
+RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir -r requirements-rasa.txt
+
+COPY config.yml domain.yml endpoints.yml credentials.yml ./
+COPY data ./data
+
+EXPOSE 5005
+
+# Train on first start if no model exists, then run the API server.
+CMD ["bash", "-c", "rasa train && rasa run --enable-api --cors '*' --model models"]

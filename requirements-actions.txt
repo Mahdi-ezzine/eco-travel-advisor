@@ -1,0 +1,7 @@
+# Rasa action server image (Python 3.8).
+rasa-sdk==3.1.1
+websockets==10.4
+psycopg2-binary
+requests
+faker
+python-dotenv

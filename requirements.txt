@@ -1,0 +1,11 @@
+# Application-layer dependencies (seeding, analytics, Streamlit frontend).
+# Rasa itself is installed separately in an isolated Python 3.8 virtual
+# environment, following the course methodology (see the notebook).
+psycopg2-binary
+faker
+pandas
+matplotlib
+requests
+python-dotenv
+streamlit
+pyngrok

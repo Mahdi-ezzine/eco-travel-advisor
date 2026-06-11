@@ -1,0 +1,17 @@
+# Secrets
+.env
+
+# Rasa
+models/
+.rasa/
+*.tar.gz
+results/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
